@@ -1,16 +1,39 @@
-# React + Vite
+MapClone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A free, open-source web maps application built on OpenStreetMap — 
+no API keys required, no usage limits.
 
-Currently, two official plugins are available:
+Features
+- 🔍 Search any place worldwide
+- 📍 Locate yourself on the map
+- 🔖 Save and name favourite locations (requires sign-in)
+- 🔐 Google Sign-In via Supabase Auth
+- 🆓 100% free stack — OpenStreetMap, Nominatim, Leaflet.js
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Live Demo
+[Your Vercel URL here]
 
-## React Compiler
+Tech Stack
+- React + Vite
+- Leaflet.js + OpenStreetMap
+- Supabase (auth + database)
+- Nominatim (geocoding)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Getting Started
 
-## Expanding the ESLint configuration
+1. Clone the repo
+   git clone https://github.com/your-username/mapclone.git
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+2. Install dependencies
+   npm install
+
+3. Add your environment variables
+   Create a .env file with:
+   VITE_SUPABASE_URL=your_supabase_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+
+4. Run the app
+   npm run dev
+
+License
+MIT — see LICENSE file
