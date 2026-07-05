@@ -1,4 +1,4 @@
-# MapClone
+# OpenMaps
 
 A free, open-source web maps application built on OpenStreetMap.  
 No API keys required. No usage limits. No billing surprises.
