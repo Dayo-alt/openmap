@@ -4,14 +4,14 @@ A free, open-source web maps application built on OpenStreetMap —
 no API keys required, no usage limits.
 
 Features
-- 🔍 Search any place worldwide
-- 📍 Locate yourself on the map
-- 🔖 Save and name favourite locations (requires sign-in)
-- 🔐 Google Sign-In via Supabase Auth
-- 🆓 100% free stack — OpenStreetMap, Nominatim, Leaflet.js
+- Search any place worldwide
+- Locate yourself on the map
+- Save and name favourite locations (requires sign-in)
+- Google Sign-In via Supabase Auth
+- 100% free stack — OpenStreetMap, Nominatim, Leaflet.js
 
 Live Demo
-[Your Vercel URL here]
+[https://openmap-seven.vercel.app]
 
 Tech Stack
 - React + Vite
@@ -20,7 +20,6 @@ Tech Stack
 - Nominatim (geocoding)
 
 Getting Started
-
 1. Clone the repo
    git clone https://github.com/your-username/mapclone.git
 
