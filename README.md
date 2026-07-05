@@ -69,6 +69,9 @@ No API keys required. No usage limits. No billing surprises.
 
 5. Run the app
    npm run dev
+   
+## Screenshots
+   <img width="1919" height="1038" alt="image" src="https://github.com/user-attachments/assets/58fca43f-7dd1-4f8a-8053-4650475a6d35" />
 
 ## License
 This project is licensed under the MIT License — see the LICENSE file for details.
