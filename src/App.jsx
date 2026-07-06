@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import SearchBar from './SearchBar';
-import LocateButton from './LocateButton';
-import AuthButton from './AuthButton';
-import Sidebar from './Sidebar';
+import SearchBar from './features/search/SearchBar';
+import LocateButton from './features/map/LocateButton';
+import AuthButton from './features/auth/AuthButton';
+import Sidebar from './features/saved-places/Sidebar';
 import './App.css';
 
 delete L.Icon.Default.prototype._getIconUrl;

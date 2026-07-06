@@ -23,7 +23,7 @@ function LocateButton({ onLocate }) {
         if (onLocate) onLocate(position);
         setLoading(false);
       },
-      (err) => {
+      () => {
         setError('Could not get your location. Check permissions.');
         setLoading(false);
       },

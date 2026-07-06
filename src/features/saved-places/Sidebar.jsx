@@ -1,8 +1,13 @@
 import { useState, useEffect } from 'react';
-import { supabase } from './supabaseClient';
+import { usePlacesStore } from './store';
 
 function Sidebar({ user, currentLocation, onPlaceSelected }) {
-  const [places, setPlaces] = useState([]);
+  const places = usePlacesStore((state) => state.places);
+  const errorMsg = usePlacesStore((state) => state.error);
+  const fetchPlaces = usePlacesStore((state) => state.fetchPlaces);
+  const savePlace = usePlacesStore((state) => state.savePlace);
+  const deletePlace = usePlacesStore((state) => state.deletePlace);
+
   const [isOpen, setIsOpen] = useState(false);
   const [view, setView] = useState('menu'); // 'menu' | 'saved'
   const [saveModalOpen, setSaveModalOpen] = useState(false);
@@ -11,40 +16,30 @@ function Sidebar({ user, currentLocation, onPlaceSelected }) {
 
   useEffect(() => {
     if (user) {
-      fetchPlaces();
-    } else {
-      setPlaces([]);
+      fetchPlaces(user);
     }
-  }, [user]);
-
-  const fetchPlaces = async () => {
-    const { data, error } = await supabase
-      .from('saved_places')
-      .select('*')
-      .order('created_at', { ascending: false });
-    if (!error) setPlaces(data);
-  };
+  }, [user, fetchPlaces]);
 
   const handleSavePlace = async () => {
     if (!placeName.trim() || !currentLocation) return;
     setLoading(true);
-    const { error } = await supabase.from('saved_places').insert({
-      user_id: user.id,
-      name: placeName,
-      lat: currentLocation[0],
-      lng: currentLocation[1],
-    });
-    setLoading(false);
-    if (!error) {
+    try {
+      await savePlace(user, placeName.trim(), currentLocation);
       setPlaceName('');
       setSaveModalOpen(false);
-      fetchPlaces();
+    } catch (err) {
+      console.error('[Sidebar]: Save failed', err);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleDelete = async (id) => {
-    await supabase.from('saved_places').delete().eq('id', id);
-    fetchPlaces();
+    try {
+      await deletePlace(user, id);
+    } catch (err) {
+      console.error('[Sidebar]: Delete failed', err);
+    }
   };
 
   return (
@@ -131,6 +126,11 @@ function Sidebar({ user, currentLocation, onPlaceSelected }) {
               placeholder="e.g. Home, Office, Mum's house"
               autoFocus
             />
+            {errorMsg && (
+              <div className="modal-error" style={{ color: '#ea4335', fontSize: '0.85rem', marginTop: '0.5rem', textAlign: 'left' }}>
+                {errorMsg}
+              </div>
+            )}
             <div className="modal-actions">
               <button onClick={() => setSaveModalOpen(false)}>Cancel</button>
               <button onClick={handleSavePlace} disabled={loading}>
