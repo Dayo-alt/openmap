@@ -110,7 +110,7 @@ git push origin feature/your-feature-name
 - All styles go in `App.css` — no inline styles unless unavoidable
 - Use **class names** that describe the element's purpose, not its appearance
   - ✅ `.sidebar-toggle`
-  - ❌ `.blue-round-button`
+  - ❌ `.red-round-button`
 
 ### File Structure
 src/
