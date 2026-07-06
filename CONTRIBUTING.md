@@ -1,184 +1,48 @@
-# Contributing to Openmaps
+# Contributing Guidelines
 
-First off, thanks for taking the time to contribute!
-Every contribution — big or small — is genuinely appreciated.
-
----
-
-## Table of Contents
-- [Code of Conduct](#code-of-conduct)
-- [How Can I Contribute?](#how-can-i-contribute)
-- [Getting Started Locally](#getting-started-locally)
-- [Pull Request Process](#pull-request-process)
-- [Style Guidelines](#style-guidelines)
-- [Reporting Bugs](#reporting-bugs)
-- [Suggesting Features](#suggesting-features)
+First off, thank you for contributing to OpenMaps! By standardizing our engineering workflows, we ensure that a team of 10+ maintainers can collaborate without code conflict or breaking the main builds.
 
 ---
 
-## Code of Conduct
+## Branching Strategy
 
-This project follows a simple rule: **be respectful.**  
-We welcome contributors of all experience levels. No question is too basic,
-no bug report is too small. Discrimination, harassment, or gatekeeping of
-any kind will not be tolerated.
+Our `main` branch is protected and cannot be pushed to directly. All developer changes must flow through Pull Requests.
 
----
+### 1. Branch Naming Conventions
+Create local branches using descriptive prefixes followed by a short description:
+* `feat/` for new client features (e.g., `feat/map-layer-switch`)
+* `fix/` for bug fixes (e.g., `fix/nan-coordinate-crash`)
+* `docs/` for updates to markdown guides or comments (e.g., `docs/add-api-specs`)
+* `infra/` or `chore/` for workflows, configurations, or updates (e.g., `infra/ci-cd-pipeline`)
 
-## How Can I Contribute?
-
-There are several ways to contribute, even without writing code:
-
-- Star the repository (helps with visibility)
-- Report bugs via GitHub Issues
-- Suggest new features via GitHub Issues
-- Improve documentation or fix typos in the README
-- Submit code fixes or new features via Pull Requests
-- Help translate the app into other languages
+### 2. PR Review Requirements
+* Pull Requests targeting `main` require **at least 1 review approval** from a designated code owner.
+* All status checks (linter, tests, and build) must pass successfully before a merge can be completed.
 
 ---
 
-## Getting Started Locally
+## CI/CD and Linting Pipeline
 
-### Prerequisites
-- Node.js 18 or higher
-- npm 9 or higher
-- A free Supabase account
+We enforce code quality gates at two levels: local pre-commit and remote CI.
 
-### Setup
+### 1. Pre-Commit Verification (Husky & lint-staged)
+On commit attempts, Husky executes `lint-staged` locally:
+* Any staged files matching `src/**/*.{js,jsx}` will automatically run `eslint --fix` and `prettier --write`.
+* If a lint error cannot be fixed automatically (e.g. unused variables, syntax errors), the commit will be aborted. Developers must address the error before committing again.
 
-1. **Fork the repository**
-   Click the "Fork" button at the top right of the GitHub repo page.
-
-2. **Clone your fork**
-   git clone https://github.com/YOUR_USERNAME/maps-clone.git
-cd maps-clone
-
-3. **Install dependencies**
-npm install
-
-4. **Set up environment variables**
-   Create a `.env` file in the root directory:
-VITE_SUPABASE_URL=your_supabase_project_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-
-5. **Run locally**
-npm run dev
-   App will be running at `http://localhost:5173`
+### 2. GitHub Actions Gateways
+Every Pull Request triggers the CI workflow defined in [.github/workflows/ci.yml](file:///c:/Users/user/Documents/GitHub/openmap/.github/workflows/ci.yml):
+* It spins up an Ubuntu environment, setups Node.js, and installs clean dependencies (`npm ci`).
+* It executes `npm run lint` and `npm run build`.
+* Merges are blocked if any of these checks fail.
 
 ---
 
-## Pull Request Process
+## Known System Limitations
 
-1. **Create a branch** for your change — never commit directly to `main`:
-git checkout -b feature/your-feature-name
-   Use prefixes like:
-   - `feature/` for new features
-   - `fix/` for bug fixes
-   - `docs/` for documentation changes
-   - `style/` for CSS/UI changes
+We believe in being brutally transparent about the limits of the current architecture. Contributors should keep these in mind when designing upgrades:
 
-2. **Make your changes** and test them locally
-
-3. **Commit with a clear message:**
-git commit -m "feat: add directions between two points"
-   Follow this commit message format:
-   - `feat:` — new feature
-   - `fix:` — bug fix
-   - `docs:` — documentation change
-   - `style:` — formatting, CSS changes
-   - `refactor:` — code restructure, no feature change
-
-4. **Push to your fork:**
-git push origin feature/your-feature-name
-
-5. **Open a Pull Request** on GitHub — describe what you changed and why
-
-6. A maintainer will review your PR within a few days. We may ask for changes before merging.
-
----
-
-##  Style Guidelines
-
-### Code
-- Use **React functional components** with hooks — no class components
-- Keep components **small and focused** — one job per component
-- Use **meaningful variable names** — `userLocation` not `ul`
-- Always handle **loading and error states** in async operations
-
-### CSS
-- All styles go in `App.css` — no inline styles unless unavoidable
-- Use **class names** that describe the element's purpose, not its appearance
-  - ✅ `.sidebar-toggle`
-  - ❌ `.blue-round-button`
-
-### File Structure
-src/
-├── App.jsx          ← main layout, map logic
-├── App.css          ← all styles
-├── SearchBar.jsx    ← search functionality
-├── Sidebar.jsx      ← sidebar + saved places
-├── AuthButton.jsx   ← Google auth
-├── LocateButton.jsx ← geolocation
-└── supabaseClient.js← Supabase init
-
----
-
-## Reporting Bugs
-
-Found a bug? Please open a **GitHub Issue** and include:
-
-- **What you expected to happen**
-- **What actually happened**
-- **Steps to reproduce it**
-- **Your browser and OS** (e.g. Chrome 120 on Windows 11)
-- **Screenshots** if relevant
-
-Use this template:
-Bug description:
-[Clear description of the bug]
-Steps to reproduce:
-
-Go to '...'
-Click on '...'
-See error
-
-Expected behaviour:
-[What should have happened]
-Actual behaviour:
-[What actually happened]
-Environment:
-
-Browser: Chrome 120
-OS: Windows 11
-App version: 1.0.0
-
-
----
-
-## Suggesting Features
-
-Have an idea? Open a **GitHub Issue** with the label `enhancement` and include:
-
-- **What problem does this solve?**
-- **How would it work?**
-- **Who would benefit from it?**
-
-Current planned features (good for first contributions):
-- [ ] Routing/directions between two points (OSRM)
-- [ ] Click-to-drop-pin anywhere on the map
-- [ ] Map style switcher (street, satellite, dark mode)
-- [ ] Search autocomplete/suggestions
-- [ ] Share a saved place via link
-
----
-
-## 📄 License
-
-By contributing to MapClone, you agree that your contributions will be
-licensed under the same **MIT License** that covers the project.
-
----
-
-*Thank you for helping make Openmaps better for everyone! 🌍*
-Commit it.
+* **IndexedDB Storage Restrictions:** Under extreme storage conditions or mobile disk pressure, the browser may evict IndexedDB databases. While `localforage` is highly resilient, developers must assume offline state is volatile and not a replacement for a remote database.
+* **Offline Conflict Resolution:** The sync engine uses a sequential FIFO queue. If a place is edited/deleted on one device offline and simultaneously modified on another device, the sync engine processes whichever updates hit the online backend first. There is no current split-merge conflict resolution panel.
+* **Nominatim Rate Limits:** Nominatim is a public service. Its usage policy strictly enforces **1 request per second max**. Any feature implementing search autocomplete or rapid typing updates must throttle key presses to respect this threshold.
+* **Google OAuth Redirect Loops:** Because authentication redirects users back to `window.location.origin`, if a user logs in while viewing a deep map coordinate URL, the application state resets to default coordinates after redirect completion.

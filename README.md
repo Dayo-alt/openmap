@@ -1,83 +1,57 @@
 # OpenMaps
 
-A free, open-source web maps application built on OpenStreetMap.  
-No API keys required. No usage limits. No billing surprises.
+An offline-first, rate-limit resilient mapping Single Page Application (SPA) built on OpenStreetMap data, providing location search and favorite location persistence without commercial API keys or usage limits.
 
-## Live Demo
-[https://openmap-seven.vercel.app]
+## The Problem & The Solution
 
-## Features
-- Search any place worldwide (powered by Nominatim)
-- Locate yourself on the map (browser geolocation)
-- Save and name favourite locations
-- Google Sign-In (via Supabase Auth)
-- Entirely free and open-source stack
+* **The Problem:** Modern maps applications rely on expensive proprietary APIs (like Google Maps or Mapbox) that require active credit cards, impose strict request caps, or collect user tracking telemetry. Open-source alternatives exist but often fail under load due to geocoding rate-limits or break completely when connection is lost.
+* **The Solution:** OpenMaps integrates public geocoding services with client-side query lifecycles (debouncing and abort tokens) and an offline-first state engine. This architecture respects public usage guidelines (e.g. Nominatim's strict 1 req/sec policy), prevents state race conditions, and operates entirely offline, storing data in IndexedDB and syncing with Supabase once network availability is recovered.
 
 ## Tech Stack
 
-| Layer | Tool | Why |
-|---|---|---|
-| Frontend | React + Vite | Fast, modern UI |
-| Map Engine | Leaflet.js | Free, open-source map rendering |
-| Map Data | OpenStreetMap | Free, crowdsourced map data |
-| Geocoding | Nominatim | Free place name → coordinates |
-| Auth + DB | Supabase | Open-source Firebase alternative |
-| Hosting | Vercel | Free frontend hosting |
+* **Frontend Framework:** React + Vite (Fast, modern SPA rendering)
+* **Map Renderer:** Leaflet.js / React-Leaflet (Lightweight open-source vector mapping)
+* **Map Tiles:** OpenStreetMap (Free, crowd-sourced world map data)
+* **State Management:** Zustand (Simplified atomic store pattern)
+* **Offline Caching:** localForage (Asynchronous wrapper for IndexedDB storage)
+* **Backend Database & Auth:** Supabase (PostgreSQL database with Row Level Security)
+* **Input Validation:** Zod (Strict TypeScript-first schema validation)
 
-## Getting Started
+## Live Branch
+
+Currently reviewing the upgraded architecture on this branch:
+[https://github.com/Dayo-alt/openmap/tree/infra/ci-cd-pipeline](https://github.com/Dayo-alt/openmap/tree/infra/ci-cd-pipeline)
+
+## Quick Start
+
+Follow these steps to run the application in your local development environment.
 
 ### Prerequisites
-- Node.js 18+
-- A Supabase account (free)
+* Node.js 18 or higher
+* A free Supabase account
 
-### Installation
+### Installation & Run
 
-1. Clone the repository
-   git clone https://github.com/YOUR_USERNAME/maps-clone.git
-   cd maps-clone
+1. **Clone the repository and checkout the pipeline branch:**
+   ```bash
+   git clone -b infra/ci-cd-pipeline https://github.com/Dayo-alt/openmap.git
+   cd openmap
+   ```
 
-2. Install dependencies
+2. **Install project dependencies:**
+   ```bash
    npm install
+   ```
 
-3. Set up environment variables
-   Create a .env file in the root directory:
+3. **Configure environment variables:**
+   Create a `.env` file in the root directory of the project:
+   ```env
    VITE_SUPABASE_URL=your_supabase_project_url
    VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
 
-4. Set up the database
-   Run this SQL in your Supabase SQL editor:
-
-   create table saved_places (
-     id uuid default gen_random_uuid() primary key,
-     user_id uuid references auth.users not null,
-     name text not null,
-     lat double precision not null,
-     lng double precision not null,
-     created_at timestamp with time zone default now()
-   );
-
-   alter table saved_places enable row level security;
-
-   create policy "Users can view their own saved places"
-     on saved_places for select using (auth.uid() = user_id);
-
-   create policy "Users can insert their own saved places"
-     on saved_places for insert with check (auth.uid() = user_id);
-
-   create policy "Users can delete their own saved places"
-     on saved_places for delete using (auth.uid() = user_id);
-
-5. Run the app
+4. **Start the development server:**
+   ```bash
    npm run dev
-   
-## Screenshots
-   <img width="1919" height="1038" alt="image" src="https://github.com/user-attachments/assets/58fca43f-7dd1-4f8a-8053-4650475a6d35" />
-
-## License
-This project is licensed under the MIT License — see the LICENSE file for details.
-
-## Acknowledgements
-- [OpenStreetMap](https://www.openstreetmap.org/) contributors for map data
-- [Leaflet.js](https://leafletjs.com/) for the map rendering engine
-- [Nominatim](https://nominatim.org/) for geocoding
-- [Supabase](https://supabase.com/) for auth and database
+   ```
+   The application will be running at `http://localhost:5173`.
