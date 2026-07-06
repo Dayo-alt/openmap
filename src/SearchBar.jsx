@@ -43,7 +43,7 @@ function SearchBar({ onLocationFound }) {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search Google Maps clone..."
+          placeholder="Search For a Place, Address or City..."
           className="search-input"
         />
         <button type="submit" className="search-button" disabled={loading}>
