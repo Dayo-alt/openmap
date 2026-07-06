@@ -36,6 +36,13 @@ Every Pull Request triggers the CI workflow defined in [.github/workflows/ci.yml
 * It executes `npm run lint` and `npm run build`.
 * Merges are blocked if any of these checks fail.
 
+### 3. Local Testing Procedures
+Before pushing code or creating a commit, developers must run the local verification suite:
+```bash
+npm run test:local
+```
+This script runs the syntax linter (`eslint`), compiles the production build to verify no import paths or build issues exist, and then starts a local preview server of the bundled output. This ensures that only verified, deployable code is proposed.
+
 ---
 
 ## Known System Limitations

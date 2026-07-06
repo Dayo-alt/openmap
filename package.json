@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test:local": "npm run lint && npm run build && npm run preview"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.2",
