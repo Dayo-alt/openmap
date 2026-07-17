@@ -1,4 +1,4 @@
-# OpenMaps
+<img width="386" height="459" alt="image" src="https://github.com/user-attachments/assets/de381c07-3a56-4707-a362-8483661ecd34" /># OpenMaps
 
 A free, open-source web maps application built on OpenStreetMap.  
 No API keys required. No usage limits. No billing surprises.
@@ -77,6 +77,11 @@ No API keys required. No usage limits. No billing surprises.
 This project is licensed under the MIT License — see the LICENSE file for details.
 
 ## Acknowledgements
+
+We extend our deepest gratitude to our supervisor, Dr. Chinwe Peace Igiri, for her invaluable mentorship and guidance. Her expertise in open-source principles, 
+software engineering best practices, and software licensing provided the technical and practical foundation for OpenMap. We are deeply grateful for her support 
+and for challenging us to think beyond the code about the project's broader impact.
+
 - [OpenStreetMap](https://www.openstreetmap.org/) contributors for map data
 - [Leaflet.js](https://leafletjs.com/) for the map rendering engine
 - [Nominatim](https://nominatim.org/) for geocoding
