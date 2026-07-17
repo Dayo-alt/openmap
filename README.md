@@ -1,4 +1,6 @@
-<img width="386" height="459" alt="image" src="https://github.com/user-attachments/assets/de381c07-3a56-4707-a362-8483661ecd34" /># OpenMaps
+<img width="386" height="459" alt="image" src="https://github.com/user-attachments/assets/de381c07-3a56-4707-a362-8483661ecd34" />
+
+# OpenMaps
 
 A free, open-source web maps application built on OpenStreetMap.  
 No API keys required. No usage limits. No billing surprises.
